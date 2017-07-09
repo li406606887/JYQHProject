@@ -26,13 +26,24 @@
     self.detailTextLabel.font = [UIFont systemFontOfSize:12];
     self.detailTextLabel.textColor = RGB(125, 125, 125);
     self.detailTextLabel.backgroundColor = [UIColor greenColor];
-    self.imageView.frame = CGRectMake(10, 5, 34, 34);
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator; //显示最右边的箭头
-    
+    [self setNeedsUpdateConstraints];
+    [self updateConstraintsIfNeeded];
 }
+
 -(void)updateConstraints{
     [super updateConstraints];
-    
+    WS(weakSelf)
+    [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf).with.offset(16);
+        make.centerY.equalTo(weakSelf);
+        make.size.mas_offset(CGSizeMake(18, 18));
+    }];
+    [self.textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.imageView.mas_right).with.offset(10);
+        make.centerY.equalTo(weakSelf);
+        make.size.mas_offset(CGSizeMake(100, 20));
+    }];
 }
 
 
